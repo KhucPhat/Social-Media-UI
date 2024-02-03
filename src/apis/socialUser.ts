@@ -1,14 +1,12 @@
 import { BASE_ROOT, USER_TOKEN } from "@/utils/config";
 import axios, { AxiosRequestConfig } from "axios";
 
-export const getUserInfo = async (token) => {
+export const getUserInfo = async () => {
   const configs: AxiosRequestConfig = {
     url: `${BASE_ROOT}/api/v1/user/me`,
     method: "GET",
     headers: {
-      Authorization: `Bearer ${
-        USER_TOKEN === "" && token ? token : USER_TOKEN
-      }`,
+      Authorization: `Bearer ${USER_TOKEN}`,
     },
   };
   try {

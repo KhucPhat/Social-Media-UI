@@ -1,11 +1,14 @@
 import { sidebarLinks } from "@/constants/lists/list";
-import { INavLink } from "@/types/object";
+import { INavLink, IUser } from "@/types/object";
 import React from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { Button } from "../ui/button";
+import { useSelector } from "react-redux";
 
 const LeftSidebar = () => {
   const { pathname } = useLocation();
+  const meInfo: IUser = useSelector((state: any) => state.userReducer.info);
+
   return (
     <nav className="leftsidebar">
       <div className="flex flex-col gap-11">
@@ -24,8 +27,8 @@ const LeftSidebar = () => {
             className="h-14 w-14 rounded-full"
           />
           <div className="flex flex-col">
-            <p className="body-bold">Name</p>
-            <p className="small-regular text-light-3">@username</p>
+            <p className="body-bold">{"Name"}</p>
+            <p className="small-regular text-light-3">{"@username"}</p>
           </div>
         </Link>
         <ul className="flex flex-col gap-6">
