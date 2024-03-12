@@ -3,6 +3,13 @@ export type InUser = {
   password: string;
 };
 
+export type RegisterUser = {
+  fullname: string;
+  username: string;
+  email: string;
+  password: string;
+};
+
 export type ResApi = {
   data: any | null | undefined;
   status: number;

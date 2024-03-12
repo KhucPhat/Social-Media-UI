@@ -1,4 +1,4 @@
-import { AuthLayout } from "@/_auth/AuthLayout";
+import AuthLayout from "@/_auth/AuthLayout";
 import SigninForm from "@/_auth/form/SigninForm";
 import SignupForm from "@/_auth/form/SignupForm";
 import { RootLayout } from "@/_root/RootLayout";

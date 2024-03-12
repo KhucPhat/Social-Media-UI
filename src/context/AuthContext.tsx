@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const INITIAL_USER = {
   id: "",
-  name: "",
+  fullname: "",
   username: "",
   email: "",
   imageUrl: "",

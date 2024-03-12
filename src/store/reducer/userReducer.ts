@@ -1,12 +1,8 @@
 import * as types from "@/constants/store/socialUser";
-import { IUser } from "@/types/object";
+import { TypeUser } from "@/types/typesReducer";
 import _ from "lodash";
 
-interface initialValue {
-  info: IUser | null;
-}
-
-const initialState: initialValue = {
+const initialState: TypeUser = {
   info: null,
 };
 

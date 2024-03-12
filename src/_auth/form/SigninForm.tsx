@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import * as React from "react";
 import {
   Form,
   FormControl,
@@ -8,17 +8,24 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 import { SigninValidation } from "@/lib/validation/auth/auth";
-import { loginReq } from "@/store/action/login";
+import { loginReq, resetLogin } from "@/store/action/login";
+import { RootState } from "@/store/reducer/reducer";
 import { InUser } from "@/types/constans";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { z } from "zod";
+import { ToastAction } from "@/components/ui/toast";
+import { ButtonForm } from "@/components/shared";
 
 const SigninForm = () => {
   const dispatch = useDispatch();
+  const loginReducer = useSelector((state: RootState) => state.loginReducer);
+
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof SigninValidation>>({
     resolver: zodResolver(SigninValidation),
@@ -29,14 +36,28 @@ const SigninForm = () => {
   });
 
   const handleSignin = async (data: InUser) => {
-    try {
-      dispatch(loginReq(data));
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(loginReq(data));
   };
 
-  console.log(form.control._formValues);
+  React.useEffect(() => {
+    if (loginReducer.isError) {
+      toast({
+        variant: "destructive",
+        title: loginReducer.messageFail ?? "",
+        action: (
+          <ToastAction
+            altText="Try again"
+            onClick={() => {
+              dispatch(resetLogin());
+            }}
+          >
+            Try again
+          </ToastAction>
+        ),
+      });
+    }
+  }, [loginReducer.isError]);
+
   return (
     <Form {...form}>
       <div className="sm:w-420 flex-center flex-col">
@@ -80,16 +101,12 @@ const SigninForm = () => {
             )}
           />
 
-          <Button type="submit" className="shad-button_primary">
-            {/* {isLoading || isUserLoading ? (
-            <div className="flex-center gap-2">
-              <Loader /> Loading...
-            </div>
-          ) : ( */}
-            Log in
-            {/* )} */}
-          </Button>
-
+          <ButtonForm
+            loading={loginReducer.loading}
+            disabled={loginReducer.loading ? true : false}
+            text="Login"
+            type="submit"
+          />
           <p className="text-small-regular text-light-2 text-center mt-2">
             Don&apos;t have an account?
             <Link

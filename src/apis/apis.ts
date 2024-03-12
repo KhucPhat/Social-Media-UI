@@ -82,10 +82,10 @@ export async function apiPost<R>(
       isError: true,
       errorMessage: "Lỗi khi thực hiện yêu cầu.",
     };
-  } catch (error) {
+  } catch (error: any) {
     return {
-      data: null,
-      status: -1,
+      data: error.response.data,
+      status: error.response.status,
       isError: true,
       errorMessage: "Lỗi khi thực hiện yêu cầu.",
     };

@@ -18,6 +18,7 @@ export const getUserInfo = async () => {
         status: response.status,
         isError: false,
         errorMessage: "",
+        loading: false,
       };
     }
 
@@ -26,6 +27,7 @@ export const getUserInfo = async () => {
       status: response.status,
       isError: true,
       errorMessage: "Lỗi khi thực hiện yêu cầu.",
+      loading: false,
     };
   } catch (error) {
     return {
@@ -33,6 +35,7 @@ export const getUserInfo = async () => {
       status: -1,
       isError: true,
       errorMessage: "Lỗi khi thực hiện yêu cầu.",
+      loading: false,
     };
   }
 };
