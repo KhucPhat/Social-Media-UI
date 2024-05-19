@@ -34,6 +34,9 @@ const SignupForm = () => {
     },
   });
 
+  console.log(form.control._formValues);
+  console.log("re-render");
+
   const handleSignup = async (data: z.infer<typeof SignupValidation>) => {
     const response: ResApi = await register(data);
     if (response.status === 200) {

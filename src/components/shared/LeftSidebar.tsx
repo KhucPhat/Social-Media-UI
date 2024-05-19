@@ -1,13 +1,10 @@
 import { sidebarLinks } from "@/constants/lists/list";
-import { INavLink, IUser } from "@/types/object";
-import React from "react";
+import { INavLink } from "@/types/object";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { Button } from "../ui/button";
-import { useSelector } from "react-redux";
 
 const LeftSidebar = () => {
   const { pathname } = useLocation();
-  const meInfo: IUser = useSelector((state: any) => state.userReducer.info);
 
   return (
     <nav className="leftsidebar">
@@ -52,6 +49,7 @@ const LeftSidebar = () => {
                       isActive && "invert-white"
                     }`}
                   />
+                  {item?.icon}
                   {item.label}
                 </NavLink>
               </li>
