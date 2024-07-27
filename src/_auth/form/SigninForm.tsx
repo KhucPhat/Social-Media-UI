@@ -1,25 +1,17 @@
-import * as React from "react";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { ButtonForm, SocialFieldChange } from "@/components/shared";
+import { Form } from "@/components/ui/form";
+import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/components/ui/use-toast";
 import { SigninValidation } from "@/lib/validation/auth/auth";
 import { loginReq, resetLogin } from "@/store/action/login";
 import { RootState } from "@/store/reducer/reducer";
-import { InUser } from "@/types/constans";
+import { InUser } from "@/types/constants/constans";
 import { zodResolver } from "@hookform/resolvers/zod";
+import * as React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { z } from "zod";
-import { ToastAction } from "@/components/ui/toast";
-import { ButtonForm } from "@/components/shared";
 
 const SigninForm = () => {
   const dispatch = useDispatch();
@@ -58,6 +50,25 @@ const SigninForm = () => {
     }
   }, [loginReducer.isError]);
 
+  const listFieldsSingin = [
+    {
+      id: "email",
+      title: "Email",
+      key: "email",
+      span: 12,
+      type: "inputChange",
+      required: true,
+    },
+    {
+      id: "password",
+      title: "Password",
+      key: "password",
+      span: 12,
+      type: "inputChange",
+      required: true,
+    },
+  ];
+
   return (
     <Form {...form}>
       <div className="sm:w-420 flex-center flex-col">
@@ -73,34 +84,7 @@ const SigninForm = () => {
           onSubmit={form.handleSubmit(handleSignin)}
           className="flex flex-col gap-5 w-full mt-4"
         >
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="shad-form_label">Email</FormLabel>
-                <FormControl>
-                  <Input type="text" className="shad-input" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="shad-form_label">Password</FormLabel>
-                <FormControl>
-                  <Input type="password" className="shad-input" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
+          <SocialFieldChange listFields={listFieldsSingin} form={form} />
           <ButtonForm
             loading={loginReducer.loading}
             disabled={loginReducer.loading ? true : false}

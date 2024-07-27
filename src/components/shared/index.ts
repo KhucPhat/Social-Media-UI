@@ -1,5 +1,6 @@
-export { default as LeftSidebar } from "./LeftSidebar";
-export { default as Topbar } from "./Topbar";
-export { default as Loader } from "./Loader";
-export { default as ButtonForm } from "./ButtonForm";
-export { default as DialogConfirm } from "./DialogConfirm";
+export { default as LeftSidebar } from "./SideBar/LeftSidebar";
+export { default as Topbar } from "./SideBar/Topbar";
+export { default as Loader } from "./Loading/Loader";
+export { default as ButtonForm } from "./Button/ButtonForm";
+export { default as DialogConfirm } from "./Dialog/DialogConfirm/DialogConfirm";
+export { default as SocialFieldChange } from "./SocialField/SocialFieldChange";

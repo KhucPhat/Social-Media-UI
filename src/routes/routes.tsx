@@ -3,22 +3,22 @@ import SigninForm from "@/_auth/form/SigninForm";
 import SignupForm from "@/_auth/form/SignupForm";
 import { RootLayout } from "@/_root/RootLayout";
 import Home from "@/_root/page.tsx/Home/Home";
-import { Route, Routes } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 
-const RoutesApp = () => {
-  return (
-    <Routes>
-      {/* public routes */}
-      <Route element={<AuthLayout />}>
-        <Route element={<SigninForm />} path="/sign-in"></Route>
-        <Route element={<SignupForm />} path="/sign-up"></Route>
-      </Route>
-      {/* private routes */}
-      <Route element={<RootLayout />}>
-        <Route index element={<Home />}></Route>
-      </Route>
-    </Routes>
-  );
-};
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RootLayout />,
+    children: [{ index: true, element: <Home /> }],
+  },
+  {
+    path: "/",
+    element: <AuthLayout />,
+    children: [
+      { path: "sign-in", element: <SigninForm /> },
+      { path: "sign-up", element: <SignupForm /> },
+    ],
+  },
+]);
 
-export default RoutesApp;
+export default router;

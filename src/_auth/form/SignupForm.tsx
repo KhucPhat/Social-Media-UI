@@ -1,18 +1,10 @@
 import { register } from "@/apis/login";
-import { ButtonForm } from "@/components/shared";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { ButtonForm, SocialFieldChange } from "@/components/shared";
+import { Form } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
 import { SignupValidation } from "@/lib/validation/auth/auth";
 import { RootState } from "@/store/reducer/reducer";
-import { ResApi } from "@/types/constans";
+import { ResApi } from "@/types/constants/constans";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
@@ -34,8 +26,40 @@ const SignupForm = () => {
     },
   });
 
-  console.log(form.control._formValues);
-  console.log("re-render");
+  const listFieldsSigupForm = [
+    {
+      id: "name",
+      title: "Name",
+      key: "name",
+      span: 12,
+      type: "inputChange",
+      required: true,
+    },
+    {
+      id: "username",
+      title: "User Name",
+      key: "username",
+      span: 12,
+      type: "inputChange",
+      required: true,
+    },
+    {
+      id: "email",
+      title: "Email",
+      key: "email",
+      span: 12,
+      type: "inputChange",
+      required: true,
+    },
+    {
+      id: "password",
+      title: "Password",
+      key: "password",
+      span: 12,
+      type: "inputChange",
+      required: true,
+    },
+  ];
 
   const handleSignup = async (data: z.infer<typeof SignupValidation>) => {
     const response: ResApi = await register(data);
@@ -71,62 +95,7 @@ const SignupForm = () => {
             onSubmit={form.handleSubmit(handleSignup)}
             className="flex flex-col gap-5 w-full mt-4"
           >
-            <FormField
-              control={form.control}
-              name="fullname"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="shad-form_label">Name</FormLabel>
-                  <FormControl>
-                    <Input type="text" className="shad-input" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="username"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="shad-form_label">Username</FormLabel>
-                  <FormControl>
-                    <Input type="text" className="shad-input" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="shad-form_label">Email</FormLabel>
-                  <FormControl>
-                    <Input type="text" className="shad-input" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="shad-form_label">Password</FormLabel>
-                  <FormControl>
-                    <Input type="password" className="shad-input" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
+            <SocialFieldChange listFields={listFieldsSigupForm} form={form} />
             <ButtonForm
               loading={loginReducer.loading}
               disabled={loginReducer.loading ? true : false}

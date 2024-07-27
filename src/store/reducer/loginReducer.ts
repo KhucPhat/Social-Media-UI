@@ -1,5 +1,5 @@
 import * as types from "@/constants/store/login";
-import { TypeLogin } from "@/types/typesReducer";
+import { TypeLogin } from "@/types/reducers/typesReducer";
 import _ from "lodash";
 
 const initialState: TypeLogin = {

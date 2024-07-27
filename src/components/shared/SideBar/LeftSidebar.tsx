@@ -1,7 +1,7 @@
 import { sidebarLinks } from "@/constants/lists/list";
 import { INavLink } from "@/types/object";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 
 const LeftSidebar = () => {
   const { pathname } = useLocation();

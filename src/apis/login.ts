@@ -1,4 +1,4 @@
-import { InUser, RegisterUser } from "@/types/constans";
+import { InUser, RegisterUser } from "@/types/constants/constans";
 import { apiPost } from "./apis";
 
 export const login = async (data: InUser) => {

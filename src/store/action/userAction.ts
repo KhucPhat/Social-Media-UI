@@ -1,5 +1,5 @@
 import * as types from "@/constants/store/socialUser";
-import { InUser } from "@/types/constans";
+import { InUser } from "@/types/constants/constans";
 import { IUser } from "@/types/object";
 
 export const getUserInfoRequest = (data: InUser) => ({

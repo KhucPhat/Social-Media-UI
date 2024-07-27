@@ -1,4 +1,4 @@
-import { InUser } from "@/types/constans";
+import { InUser } from "@/types/constants/constans";
 import * as types from "@/constants/store/login";
 
 export const loginReq = (data: InUser) => ({

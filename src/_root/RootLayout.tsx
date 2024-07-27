@@ -1,8 +1,8 @@
 import { getUserInfo } from "@/apis/socialUser";
 import { LeftSidebar, Loader, Topbar } from "@/components/shared";
-import Bottombar from "@/components/shared/Bottombar";
+import Bottombar from "@/components/shared/Button/Bottombar";
 import { getUserInfoSuccess } from "@/store/action/userAction";
-import { ResApi } from "@/types/constans";
+import { ResApi } from "@/types/constants/constans";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
