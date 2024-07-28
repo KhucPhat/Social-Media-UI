@@ -1,11 +1,25 @@
 import { BASE_ROOT, USER_TOKEN } from "@/utils/config";
 import axios, { AxiosRequestConfig } from "axios";
+import store from "@/store/store";
+import { errorsResponseData } from "@/store/action/errorsAction";
 
 export interface Response<T> {
   data: T | null | undefined;
   status: number;
   isError: boolean;
   errorMessage: string;
+}
+
+export interface TypeErrosRes {
+  response: {
+    data: {
+      status: number;
+      message: string;
+    };
+    status: number;
+    isError: boolean;
+    errorMessage: string;
+  };
 }
 
 export async function apiGet<R>(
@@ -40,13 +54,16 @@ export async function apiGet<R>(
       isError: true,
       errorMessage: "Lỗi khi thực hiện yêu cầu.",
     };
-  } catch (error) {
-    return {
+  } catch (error: any) {
+    const dataErrors = {
       data: null,
       status: -1,
       isError: true,
-      errorMessage: "Lỗi khi thực hiện yêu cầu.",
+      errorMessage: error.response.data.message,
     };
+
+    store.dispatch(errorsResponseData(dataErrors));
+    return dataErrors;
   }
 }
 
@@ -83,11 +100,14 @@ export async function apiPost<R>(
       errorMessage: "Lỗi khi thực hiện yêu cầu.",
     };
   } catch (error: any) {
-    return {
-      data: error.response.data,
-      status: error.response.status,
+    const dataErrors = {
+      data: null,
+      status: -1,
       isError: true,
-      errorMessage: "Lỗi khi thực hiện yêu cầu.",
+      errorMessage: error.response.data.message,
     };
+
+    store.dispatch(errorsResponseData(dataErrors));
+    return dataErrors;
   }
 }

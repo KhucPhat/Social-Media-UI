@@ -6,7 +6,7 @@ import { call, put, takeEvery } from "redux-saga/effects";
 export const loginSagas = function* (action) {
   const { data } = action.payload;
   const response = yield call(loginApi.login, data);
-  console.log(response);
+
   if (response.status === 200) {
     const user = response.data.data;
     yield put(actions.loginSuccess());

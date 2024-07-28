@@ -1,10 +1,13 @@
-import { RootState } from "@/store/reducer/reducer";
-import { useSelector } from "react-redux";
+import Feed from "./Feed";
+import RightFeed from "./RightFeed";
 
 const Home = () => {
-  const meInfo = useSelector((state: RootState) => state.userReducer.info);
-  console.log(meInfo);
-  return <div>Home</div>;
+  return (
+    <div className="flex flex-1">
+      <Feed />
+      <RightFeed />
+    </div>
+  );
 };
 
 export default Home;

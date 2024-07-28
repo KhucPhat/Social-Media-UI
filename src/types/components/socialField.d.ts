@@ -3,6 +3,7 @@ export type ListFieldType = {
   title: string;
   key: string;
   type: string;
+  typeInput: string;
   span: number;
   required: boolean;
 };

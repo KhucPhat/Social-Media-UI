@@ -1,24 +1,15 @@
+import { login } from "@/apis/login";
 import { ButtonForm, SocialFieldChange } from "@/components/shared";
 import { Form } from "@/components/ui/form";
-import { ToastAction } from "@/components/ui/toast";
-import { useToast } from "@/components/ui/use-toast";
 import { SigninValidation } from "@/lib/validation/auth/auth";
-import { loginReq, resetLogin } from "@/store/action/login";
-import { RootState } from "@/store/reducer/reducer";
+import { TypeResponse } from "@/types/apis/dataResponse";
 import { InUser } from "@/types/constants/constans";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as React from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { z } from "zod";
 
 const SigninForm = () => {
-  const dispatch = useDispatch();
-  const loginReducer = useSelector((state: RootState) => state.loginReducer);
-
-  const { toast } = useToast();
-
   const form = useForm<z.infer<typeof SigninValidation>>({
     resolver: zodResolver(SigninValidation),
     defaultValues: {
@@ -28,27 +19,14 @@ const SigninForm = () => {
   });
 
   const handleSignin = async (data: InUser) => {
-    dispatch(loginReq(data));
-  };
+    const response: TypeResponse = await login(data);
 
-  React.useEffect(() => {
-    if (loginReducer.isError) {
-      toast({
-        variant: "destructive",
-        title: loginReducer.messageFail ?? "",
-        action: (
-          <ToastAction
-            altText="Try again"
-            onClick={() => {
-              dispatch(resetLogin());
-            }}
-          >
-            Try again
-          </ToastAction>
-        ),
-      });
+    if (response.status === 200) {
+      const dataUser = response.data.data;
+      localStorage.setItem("token", dataUser.accessToken);
+      window.location.href = "/";
     }
-  }, [loginReducer.isError]);
+  };
 
   const listFieldsSingin = [
     {
@@ -57,6 +35,7 @@ const SigninForm = () => {
       key: "email",
       span: 12,
       type: "inputChange",
+      typeInput: "text",
       required: true,
     },
     {
@@ -65,6 +44,7 @@ const SigninForm = () => {
       key: "password",
       span: 12,
       type: "inputChange",
+      typeInput: "password",
       required: true,
     },
   ];
@@ -86,8 +66,8 @@ const SigninForm = () => {
         >
           <SocialFieldChange listFields={listFieldsSingin} form={form} />
           <ButtonForm
-            loading={loginReducer.loading}
-            disabled={loginReducer.loading ? true : false}
+            loading={false}
+            disabled={false}
             text="Login"
             type="submit"
           />

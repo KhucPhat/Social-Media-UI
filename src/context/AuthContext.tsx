@@ -1,4 +1,4 @@
-import { IUser } from "@/types/object";
+import { IUser } from "@/types/list/object";
 import { createContext, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 

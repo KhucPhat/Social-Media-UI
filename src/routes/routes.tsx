@@ -1,3 +1,4 @@
+import Test from "@/Test/Test";
 import AuthLayout from "@/_auth/AuthLayout";
 import SigninForm from "@/_auth/form/SigninForm";
 import SignupForm from "@/_auth/form/SignupForm";
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       { path: "sign-in", element: <SigninForm /> },
       { path: "sign-up", element: <SignupForm /> },
     ],
+  },
+  {
+    path: "/test",
+    element: <Test />,
   },
 ]);
 

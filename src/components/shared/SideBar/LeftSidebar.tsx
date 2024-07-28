@@ -1,10 +1,13 @@
 import { sidebarLinks } from "@/constants/lists/list";
-import { INavLink } from "@/types/object";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { Button } from "../../ui/button";
+import { INavLink } from "@/types/list/object";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/reducer/reducer";
 
 const LeftSidebar = () => {
   const { pathname } = useLocation();
+  const userInfor = useSelector((state: RootState) => state.userReducer.infor);
 
   return (
     <nav className="leftsidebar">
@@ -24,8 +27,8 @@ const LeftSidebar = () => {
             className="h-14 w-14 rounded-full"
           />
           <div className="flex flex-col">
-            <p className="body-bold">{"Name"}</p>
-            <p className="small-regular text-light-3">{"@username"}</p>
+            <p className="body-bold">{userInfor.fullname}</p>
+            <p className="small-regular text-light-3">{userInfor.username}</p>
           </div>
         </Link>
         <ul className="flex flex-col gap-6">
@@ -49,7 +52,6 @@ const LeftSidebar = () => {
                       isActive && "invert-white"
                     }`}
                   />
-                  {item?.icon}
                   {item.label}
                 </NavLink>
               </li>

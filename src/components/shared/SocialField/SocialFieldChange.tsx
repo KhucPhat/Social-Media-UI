@@ -1,7 +1,6 @@
-import { Grid } from "@mui/material";
-import React from "react";
-import FiledsSocial from "./FiledsSocial";
 import { ListFieldType } from "@/types/components/socialField";
+import React from "react";
+import { getFieldSocial } from "./FiledsSocial";
 
 interface SocialFieldProps {
   listFields: ListFieldType[];
@@ -11,22 +10,11 @@ interface SocialFieldProps {
 const SocialFieldChange: React.FC<SocialFieldProps> = (props) => {
   const { listFields, form } = props;
   return (
-    <Grid
-      container
-      spacing={2}
-      sx={{
-        width: "100%",
-      }}
-    >
-      {listFields?.map((field: ListFieldType, index: number) => (
-        <FiledsSocial
-          formKey={field.key}
-          form={form}
-          field={field}
-          index={index}
-        />
-      ))}
-    </Grid>
+    <>
+      {listFields?.map((field: ListFieldType, index: number) =>
+        getFieldSocial(field, index, form, field.key)
+      )}
+    </>
   );
 };
 
