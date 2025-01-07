@@ -1,23 +1,23 @@
 import * as types from "@/constants/store/socialUser";
-import { IUser } from "@/types/object";
-import _ from "lodash";
+import { TypeUser } from "@/types/reducers/typesReducer";
 
-interface initialValue {
-  info: IUser | null;
-}
-
-const initialState: initialValue = {
-  info: null,
+const initialState: TypeUser = {
+  infor: {
+    fullname: "",
+    username: "",
+    email: "",
+  },
 };
 
 export const userReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case types.GET_USER_INFO_SUCCESS: {
       const { data } = action.payload;
-      const newState = _.cloneDeep(state);
-      newState.info = data;
-      console.log(newState);
-      return newState;
+
+      return {
+        ...state,
+        infor: data,
+      };
     }
 
     default:

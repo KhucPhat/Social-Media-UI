@@ -5,21 +5,21 @@ import { call, put, takeEvery } from "redux-saga/effects";
 
 export const loginSagas = function* (action) {
   const { data } = action.payload;
-  try {
-    const response = yield call(loginApi.login, data);
-    if (response.status === 200) {
-      const user = response.data.data;
+  const response = yield call(loginApi.login, data);
 
-      yield put(actions.loginSuccess());
-      localStorage.setItem("token", user.accessToken);
-      window.location.href = "/";
-    }
-  } catch (error: any) {
-    yield put(actions.messageFail(error.response.data));
+  if (response.status === 200) {
+    const user = response.data.data;
+    yield put(actions.loginSuccess());
+    localStorage.setItem("token", user.accessToken);
+    window.location.href = "/";
+  } else {
+    yield put(actions.loginFailed());
     yield put(
-      actions.loginFailed({
-        isError: true,
-      })
+      actions.messageFail(
+        response.status === 422
+          ? "The account has not been verified. Please check your account verification email."
+          : "Login failed.Please try again."
+      )
     );
   }
 };

@@ -1,4 +1,4 @@
-import { InUser } from "@/types/constans";
+import { InUser } from "@/types/constants/constans";
 import * as types from "@/constants/store/login";
 
 export const loginReq = (data: InUser) => ({
@@ -10,12 +10,15 @@ export const loginSuccess = () => ({
   type: types.LOGIN_SUCCESS,
 });
 
-export const loginFailed = (data) => ({
+export const loginFailed = () => ({
   type: types.LOGIN_FAILED,
-  payload: data,
 });
 
 export const messageFail = (text) => ({
   type: types.MESSAGE_FAILED,
-  payload: text,
+  payload: { text },
+});
+
+export const resetLogin = () => ({
+  type: types.RESET_LOGIN,
 });
